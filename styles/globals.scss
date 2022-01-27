@@ -2,19 +2,19 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 * {
   box-sizing: border-box;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 $header-height: 65px;
-$dark-color: #1F1A2D;
-$grey-color: #E0E0E0;
-$blue-color: #4378FF;
-$non-active-dark: #847E95;
+$dark-color: #1f1a2d;
+$grey-color: #e0e0e0;
+$blue-color: #4378ff;
+$non-active-dark: #847e95;
 
 a {
   color: $blue-color;
@@ -44,12 +44,16 @@ a {
 
 .btn-grey {
   color: $non-active-dark;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
   border: 1px solid $grey-color;
 
   &:hover {
-    background: #8AABFF;
-    color: #fFF;
+    background: #8aabff;
+    color: #fff;
   }
 }
 
@@ -67,14 +71,18 @@ a {
     line-height: 22px;
     letter-spacing: 0.02em;
     color: $non-active-dark;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
 
   input {
     height: 52px;
     width: 100%;
     padding: 15px 20px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
     border: 1px solid $grey-color;
     border-radius: 10px;
     font-weight: 600;
@@ -92,13 +100,13 @@ a {
     &:focus,
     &:hover,
     &:not(:placeholder-shown) {
-      border: 1px solid #4378FF;
+      border: 1px solid #4378ff;
       outline: $blue-color;
       color: #000000;
     }
 
-    &:not(:placeholder-shown)+label,
-    &:focus+label {
+    &:not(:placeholder-shown) + label,
+    &:focus + label {
       top: -20px;
       left: 0;
       font-size: 16px;
@@ -121,15 +129,15 @@ a {
     width: 14px;
     height: 14px;
     margin-right: 10px;
-    border: 1px solid #5F5088;
+    border: 1px solid #5f5088;
     box-sizing: border-box;
     border-radius: 5px;
-    transition: all .4s linear;
+    transition: all 0.4s linear;
 
     &:hover {
-      background: #8AABFF;
+      background: #8aabff;
       border: none;
-      transition: .4s linear;
+      transition: 0.4s linear;
     }
 
     img {
@@ -140,8 +148,7 @@ a {
   }
 
   input[type="checkbox"]:checked {
-
-    &~.checkbox-mimic {
+    & ~ .checkbox-mimic {
       border: none;
       background: transparent;
 
@@ -153,7 +160,6 @@ a {
     }
   }
 
-
   label {
     display: flex;
     align-items: center;
@@ -162,6 +168,10 @@ a {
     line-height: 19px;
     letter-spacing: 0.02em;
     color: $dark-color;
+
+    .text {
+      width: 100%;
+    }
   }
 }
 
@@ -173,7 +183,7 @@ a {
   align-items: center;
   padding: 25px 30px;
   background-color: #fff;
-  border-bottom: 1px solid #DCDDE0;
+  border-bottom: 1px solid #dcdde0;
 
   .logo {
     font-weight: 800;
@@ -183,8 +193,8 @@ a {
     color: #000000;
   }
 
-  nav {}
-
+  nav {
+  }
 }
 
 .auth-form__wrapper {
@@ -218,5 +228,77 @@ a {
     align-items: center;
     justify-content: center;
   }
+}
 
+.code-form__wrapper {
+  width: 100%;
+  max-width: 476px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  backdrop-filter: blur(50px);
+  border-radius: 10px;
+
+  span {
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    color: $dark-color;
+    margin-bottom: 15px;
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+  }
+
+  input {
+    width: 46px;
+    height: 63px;
+    font-size: 1rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+
+    color: #a7a7a7;
+
+    &:not(:last-child){
+      margin-right: 13px;
+    }
+
+    &::placeholder {
+      color: transparent;
+      opacity: 0;
+    }
+
+    &:focus,
+    &:hover,
+    &[type="number"]:not(:placeholder-shown) {
+      border: 1px solid #4378ff;
+      outline: $blue-color;
+      color: #000000;
+    }
+  }
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
