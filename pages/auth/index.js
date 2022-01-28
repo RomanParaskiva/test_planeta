@@ -21,8 +21,10 @@ const AuthPage = () => {
       await setFormState(!formState)
     }
 
-    const regRequest = async () => {
-        const res = await request('/api/auth/register', {...form})
+    const regRequest = async (e) => {
+        e.preventDefault()
+        
+        const res = await request('/api/auth/register', 'POST', {...form})
 
         console.log(res)
     }

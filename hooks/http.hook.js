@@ -1,9 +1,7 @@
 const useHttp = () => {
   
-  const request = async ({url, method = 'GET', data = null}) => {
+  const request = async (url, method = 'GET', data = null) => {
     try{
-      if(data) method = 'POST'
-
       const token = localStorage.getItem('access_token') || ''
       const res = await fetch(url, {
         method,
