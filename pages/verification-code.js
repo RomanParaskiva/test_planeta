@@ -1,21 +1,39 @@
-import { useEffect, useState } from 'react'
-import useHttp from '../../hooks/http.hook'
+import { useEffect, useContext } from 'react'
+import { useRouter } from 'next/router'
+import authContext from '../context/authContext'
+
+
 const VerificationCode = () => {
 
-  const [code, setCode] = useState(''),
-    { request } = useHttp()
+  const router = useRouter(),
+    { auth: { addChar, deleteChar, code, userId } } = useContext(authContext)
 
-  const handleForm = async (target) => {
-    
-    await setCode(code + target.value)
-   
+  useEffect(() => {
+    !userId && router.push('/')
+  })
+
+  useEffect(() => {
     if (code.length == 6) {
       sendCode()
     }
-  }
+  }, [code])
 
   const sendCode = async () => {
     const str = `${code.slice(0, 3)}-${code.slice(3)}`
+
+    const res = await fetch('https://test.it-planet.org/sso/signup/confirm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId,
+        confirmationCode: str
+      })
+    })
+
+    if (res.status == 200) router.push('/user-activate')
+
   }
 
   useEffect(() => {
@@ -43,50 +61,33 @@ const VerificationCode = () => {
       }
 
       const nextIndex = currentIndex + 1
-      
-      await handleForm(target)
+
+      await addChar(target.value)
 
       if (nextIndex < numberCodeInputs.length) {
-        
         numberCodeInputs[nextIndex].focus()
         numberCodeInputs[nextIndex].removeAttribute('readOnly')
         numberCodeInputs[currentIndex].setAttribute('readOnly', true)
       }
 
-      if (nextIndex == 6) {
-        sendCode()
-      }
     }
 
-    const handleKeyDown = e => {
-      const { code, target, key } = e
+    const handleKeyDown = async e => {
+      const { code, target } = e
 
-      const reg = new RegExp(/\d/)
       const currentIndex = Number(target.dataset.numberCodeInput)
       const previousIndex = currentIndex - 1
-      const nextIndex = currentIndex + 1
 
       const hasPreviousIndex = previousIndex >= 0
-      const hasNextIndex = nextIndex <= numberCodeInputs.length - 1
 
       switch (code) {
         case 'ArrowLeft':
         case 'ArrowUp':
-          // if (hasPreviousIndex) {
-          //   numberCodeInputs[previousIndex].focus()
-          //   numberCodeInputs[previousIndex].removeAttribute('readOnly')
-          //   numberCodeInputs[currentIndex].setAttribute('readOnly', true)
-          // }
           e.preventDefault()
           break
 
         case 'ArrowRight':
         case 'ArrowDown':
-          // if (hasNextIndex) {
-          //   numberCodeInputs[nextIndex].focus()
-          //   numberCodeInputs[nextIndex].removeAttribute('readOnly')
-          //   numberCodeInputs[currentIndex].setAttribute('readOnly', true)
-          // }
           e.preventDefault()
           break
         case 'Backspace':
@@ -95,6 +96,7 @@ const VerificationCode = () => {
             numberCodeInputs[previousIndex].focus()
             numberCodeInputs[currentIndex].setAttribute('readOnly', true)
             numberCodeInputs[previousIndex].removeAttribute('readOnly')
+            await deleteChar()
           }
           break
         default:
@@ -127,10 +129,3 @@ const VerificationCode = () => {
 
 export default VerificationCode
 
-// export async function getServerSideProps(ctx) {
-//   return {
-//     props: {
-//       ctx
-//     }
-//   }
-// }

@@ -4,7 +4,6 @@ const handler = async (req, res) => {
         if (!req.body) {
             throw new Error('Неверные данные')
         }
-        console.log(req)
         const { email, password, passwordConfim, mailing } = req.body
 
         if (!validator.isEmail(email)) throw new Error('Некорректный емейл')
@@ -15,14 +14,16 @@ const handler = async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-              }
-              , 
-              body : JSON.stringify({username: email, password, mailing})
+            },
+            body: JSON.stringify({ username: email, password, mailing })
         })
+        
+        if (response.status != 200) {
+            throw new Error('Серверная ошибка')
+        }
 
-        if(response.status == 200) res.status(200).json(res.body)
+        res.status(200).json(response.body)
 
-        throw new Error('Серверная ошибка')
     } catch (error) {
         res.status(500).json({ message: error.message })
     }

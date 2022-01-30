@@ -6,7 +6,7 @@ const Input = ({ type, name, label, callback }) => {
     return (
         <div className="input__wrapper">
             <input
-            autoComplete="off"
+                autoComplete="off"
                 readOnly
                 onFocus={handleFocus}
                 onChange={callback}
