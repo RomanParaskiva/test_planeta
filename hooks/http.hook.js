@@ -1,32 +1,33 @@
 import { useState, useEffect } from "react"
 const useHttp = () => {
   const [loading, setLoading] = useState(false),
-  [requestError, setRequestError] = useState(null)
-  
-  const request = async (url, method = 'GET', data = null) => {
-    try{
+    [requestError, setRequestError] = useState(null)
+
+  const request = async (url, method = 'GET', body = null) => {
+    try {
       setLoading(true)
+
       const token = localStorage.getItem('access_token') || ''
+
       const res = await fetch(url, {
         method,
-        body: JSON.stringify(data),
+        body,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       })
-        console.log(res)
-        if(!res.ok) {
-          setRequestError(res.error)
-          setLoading(false)
-        } 
-
-        const json = await res.json()
-        
+      if (!res.ok) {
+        setRequestError(res.error)
         setLoading(false)
-        return json
+      }
 
-    } catch(e){
+      const json = await res.json()
+
+      setLoading(false)
+      return json
+
+    } catch (e) {
       console.log(e)
     }
   }

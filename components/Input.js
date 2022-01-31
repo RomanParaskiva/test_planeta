@@ -1,4 +1,4 @@
-const Input = ({ type = 'text', name, label, callback, value = '' }) => {
+const Input = ({ type = 'text', name, label, callback, value }) => {
 
     const handleFocus = (e) => {
         e.target.removeAttribute('readonly')

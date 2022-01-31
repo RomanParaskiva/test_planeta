@@ -1,20 +1,19 @@
 import { useState, useEffect, useContext } from "react"
 import userContext from "../../context/userContext"
+import useHttp from '../../hooks/http.hook'
 import Link from "next/link"
 import Header from '../../components/Header'
 import Input from '../../components/Input'
 import SexSelect from '../../components/SexSelect'
 import DateInput from '../../components/DateInput'
+import StatusInput from "../../components/StatusInput"
 
 
 
 const Home = () => {
-    const { user } = useContext(userContext),
+    const { user, statuses } = useContext(userContext),
     [form, setForm] = useState({})
 
-    useEffect(() => {
-
-    })
     console.log(user)
 
     const handleForm = async (e) => {
@@ -96,8 +95,8 @@ const Home = () => {
                                 <Input name={'lastname'} label={'Фамилия'} value={user.lastname || ''} callback={handleForm} />
                                 <Input name={'patronymic'} label={'Отчество'} value={user.patronymic || ''} callback={handleForm} />
                                 <SexSelect  callback={handleForm}/>
-                                <DateInput  callback={handleForm}/>
-                                <Input name={'lastname'} label={'Имя'} value={user.firstname} />
+                                <DateInput name={'birthDate'} label={'Дата рождения'}  callback={handleForm} value={user.birthDate || new Date()}/>
+                                <StatusInput name={'personStatusId'} label={'Статус'} value={user.personStatusId || ''} variants={statuses} />
                                 <Input name={'lastname'} label={'Имя'} value={user.firstname} />
                             </form>
                         </div>
@@ -109,3 +108,5 @@ const Home = () => {
 }
 
 export default Home
+
+

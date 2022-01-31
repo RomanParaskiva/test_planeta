@@ -19,8 +19,8 @@ const AuthPage = () => {
     router = useRouter()
 
 
-  const handleForm = async (e) => {
-    await setForm({ ...form, [e.target.name]: e.target.value })
+  const handleForm = async ({target}) => {
+    await setForm({ ...form, [target.name]: target.value })
   }
 
   const handleFormState = async () => {
@@ -29,22 +29,15 @@ const AuthPage = () => {
 
   const regRequest = async (e) => {
     e.preventDefault()
-    const { id } = await request('/api/auth/register', 'POST', { ...form })
+    const { id } = await request('/api/auth/register', 'POST', JSON.stringify({ ...form }))
     await saveId(id)
-    router.push({
-      pathname: '/verification-code',
-      query: {
-        userId
-      },
-      getServerSideProps: true
-    })
+    router.push('/verification-code')
   }
 
   const loginRequest = async () => {
-      // const res = await request('https://test.it-planet.org/user/profile/personal')
-      const res = await request('/api/auth/login', 'POST', {...form})
-
+      const res = await request('/api/auth/login', 'POST', JSON.stringify({...form}))
       login(res)
+      router.push('/core/')
   }
 
   return (

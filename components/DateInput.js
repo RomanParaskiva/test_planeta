@@ -1,16 +1,16 @@
 
-const DateInput = ({ callback, initValue = null }) => {
+const DateInput = ({ name, label, callback, initValue = null }) => {
     return (
         <div className="input__wrapper">
             <input
                 autoComplete="off"
                 onChange={callback}
                 type={'date'}
-                name={'dateBirth'}
+                name={name}
                 required
                 placeholder={'Дата рождения'}
-                value={initValue ? initValue : ''} />
-            <label>{'Дата рождения'}</label>
+                value={initValue} />
+            <label>{label}</label>
         </div>
     )
 }

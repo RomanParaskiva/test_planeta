@@ -4,10 +4,7 @@ const SexSelect = ({ callback, initValue = null }) => {
     const [open, setOpen] = useState(false),
         [value, setValue] = useState(initValue == null ? '' : (initValue ? 'Мужчина' : 'Женщина'))
 
-    useEffect(() => {
-        handleClose()
-    }, [])
-
+   
     const handleClick = async ({ target }) => {
         await setOpen(!open)
     }
@@ -15,10 +12,6 @@ const SexSelect = ({ callback, initValue = null }) => {
     const handleChange = async ({ target }) => {
         setValue(target.dataset.sex == 1 ? 'Мужчина' : 'Женщина')
         await setOpen(!open)
-    }
-
-    const handleClose = () => {
-        
     }
 
     return (

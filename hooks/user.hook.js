@@ -1,10 +1,15 @@
 import { useState, useEffect, useCallback } from "react"
 
+import useHttp from './http.hook'
+
 const useUser = () => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null),
+    [statuses, setStatuses] = useState(null),
+    { request } = useHttp()
 
     useEffect(useCallback(() => {
-        getUser()
+       localStorage.getItem('access_token') ? getUser() : ''
+       localStorage.getItem('access_token') ? getStatuses() : ''
     }), [])
 
     const getUser = async () => {
@@ -24,8 +29,13 @@ const useUser = () => {
 
     }
 
+    const getStatuses = async () => {
+        const res = await request('https://test.it-planet.org/user/dict/person-status')
+        setStatuses(res)
+    }
 
-    return { user }
+
+    return { user, statuses }
 }
 
 export default useUser
