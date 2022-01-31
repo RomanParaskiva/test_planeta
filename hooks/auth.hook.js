@@ -2,15 +2,15 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 
 const useAuth = () => {
-    const [user, setUser] = useState(null),
+    const [email, setEmail] = useState(null),
         [userId, setUserId] = useState(null),
         [code, setCode] = useState(''),
         router = useRouter()
 
     useEffect(() => {
-        process.browser || localStorage.getItem('access_token') && router.push('/core/')
-        process.browser || !localStorage.getItem('access_token') && router.push('/')
-    }, [user])
+       localStorage.getItem('access_token') && router.push('/core/')
+       !localStorage.getItem('access_token') && router.push('/')
+    }, [email])
 
     const addChar = async (char) => { await setCode(code + char) }
     const deleteChar = async () => { await setCode(code.substring(0, code.length - 1)) }
@@ -18,7 +18,7 @@ const useAuth = () => {
     const login = async (obj) => { 
         try {
             await setUserId(obj.id)
-            await setUser(obj.username)
+            await setEmail(obj.username)
             localStorage.setItem('access_token', obj.token)
         } catch (error) {
             console.log(error)
@@ -32,7 +32,7 @@ const useAuth = () => {
         setUserId(id)
     }
 
-    return { auth: { login, logout, saveId, userId, user, addChar, deleteChar, code } }
+    return { auth: { login, logout, saveId, userId, email, addChar, deleteChar, code, setCode } }
 }
 
 export default useAuth

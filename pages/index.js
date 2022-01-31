@@ -41,14 +41,10 @@ const AuthPage = () => {
   }
 
   const loginRequest = async () => {
-    const res = await request('https://test.it-planet.org/sso/signin', { ...form })
+      // const res = await request('https://test.it-planet.org/user/profile/personal')
+      const res = await request('/api/auth/login', 'POST', {...form})
 
-    if (res.ok){
-      const json = await res.json()
-
-      login(json)
-
-    }
+      login(res)
   }
 
   return (

@@ -18,7 +18,11 @@ const UserActivate = () => {
     await setForm({ ...form, [target.name]: target.value })
   }
 
-  const activateAcc = async () => {
+  
+  const activateAcc = async (e) => {
+    e.preventDefault()
+    console.log( userId, code,
+      form)
     const res = await fetch('https://test.it-planet.org/sso/signup/activate/personal', {
       method: 'POST',
       headers: {
@@ -36,9 +40,10 @@ const UserActivate = () => {
     }
   }
   return (
-    <div className="contaner">
-      <span>Заполните инофрмацию о себе</span>
+    <div className="container">
+      
       <div className="auth-form__wrapper">
+      <h4 className="text-bold">Заполните информацию о себе</h4>
         <form>
           <Input
             type={'text'}

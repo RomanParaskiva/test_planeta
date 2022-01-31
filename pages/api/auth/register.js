@@ -12,17 +12,14 @@ const handler = async (req, res) => {
 
         const response = await fetch('https://test.it-planet.org/sso/signup', {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username: email, password, mailing })
         })
-        
-        if (response.status != 200) {
-            throw new Error('Серверная ошибка')
-        }
 
-        res.status(200).json(response.body)
+        res.status(response.status).json(response.body)
 
     } catch (error) {
         res.status(500).json({ message: error.message })

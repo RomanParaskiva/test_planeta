@@ -15,7 +15,7 @@ const useHttp = () => {
           'Authorization': `Bearer ${token}`
         }
       })
-
+        console.log(res)
         if(!res.ok) {
           setRequestError(res.error)
           setLoading(false)

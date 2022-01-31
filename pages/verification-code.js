@@ -6,7 +6,7 @@ import authContext from '../context/authContext'
 const VerificationCode = () => {
 
   const router = useRouter(),
-    { auth: { addChar, deleteChar, code, userId } } = useContext(authContext)
+    { auth: { addChar, deleteChar, code, userId, setCode } } = useContext(authContext)
 
   useEffect(() => {
     !userId && router.push('/')
@@ -20,6 +20,7 @@ const VerificationCode = () => {
 
   const sendCode = async () => {
     const str = `${code.slice(0, 3)}-${code.slice(3)}`
+    await setCode(str)
 
     const res = await fetch('https://test.it-planet.org/sso/signup/confirm', {
       method: 'POST',
