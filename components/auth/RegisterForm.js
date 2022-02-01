@@ -8,32 +8,32 @@ const RegisterForm = ({props: { handleForm, regRequest }}) => {
         type={'email'}
         name={'email'}
         label={'E-mail'}
-        callback={handleForm}
+        onChange={handleForm}
       />
       <Input
         type={'password'}
         name={'password'}
         label={'Пароль'}
-        callback={handleForm}
+        onChange={handleForm}
       />
       <Input
         type={'password'}
         name={'passwordConfim'}
         label={'Повторите пароль'}
-        callback={handleForm}
+        onChange={handleForm}
       />
       <button type="submit" onClick={regRequest} className="btn btn-grey">Регистрация</button>
 
       <Checkbox
         name={'mailing'}
         text={'Соглашаюсь на получение рассылки по электронной почте'}
-        callback={handleForm}
+        onChange={handleForm}
       />
 
       <Checkbox
         name={'policy'}
         text={'Соглашаюсь с <a>политикой обработки персональных данных</a>'}
-        callback={handleForm}
+        onChange={handleForm}
       />
     </form>
   )

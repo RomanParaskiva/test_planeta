@@ -10,7 +10,7 @@ const useAuth = () => {
     useEffect(() => {
        localStorage.getItem('access_token') && router.push('/core/')
        !localStorage.getItem('access_token') && router.push('/')
-    }, [email])
+    }, [email, userId])
 
     const addChar = async (char) => { await setCode(code + char) }
     const deleteChar = async () => { await setCode(code.substring(0, code.length - 1)) }

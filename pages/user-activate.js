@@ -46,24 +46,21 @@ const UserActivate = () => {
       <h4 className="text-bold">Заполните информацию о себе</h4>
         <form>
           <Input
-            type={'text'}
             name={'firstname'}
             label={'Имя'}
-            callback={handleForm}
+            onChange={handleForm}
           />
 
           <Input
-            type={'text'}
             name={'lastname'}
             label={'Фамилия'}
-            callback={handleForm}
+            onChange={handleForm}
           />
 
           <Input
-            type={'text'}
             name={'login'}
             label={'Логин'}
-            callback={handleForm}
+            onChange={handleForm}
           />
 
           <button type="submit" onClick={activateAcc} className="btn btn-grey">Создать профиль</button>

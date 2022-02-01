@@ -4,21 +4,38 @@ import useHttp from '../../hooks/http.hook'
 import Link from "next/link"
 import Header from '../../components/Header'
 import Input from '../../components/Input'
-import SexSelect from '../../components/SexSelect'
-import DateInput from '../../components/DateInput'
-import StatusInput from "../../components/StatusInput"
+import Select from '../../components/Select'
+import SelectWithPopup from '../../components/SelectWithPopup'
 
 
 
 const Home = () => {
-    const { user, statuses } = useContext(userContext),
-    [form, setForm] = useState({})
+    const { appUser: { user, statuses, getCountries, getRegions, getCities } } = useContext(userContext),
+        [form, setForm] = useState(
+            {
+                "firstname": user?.firstname || null,
+                "lastname": user?.lastname || null,
+                "patronymic": user?.patronymic || null,
+                "sex": user?.sex || null,
+                "birthDate": user?.birthDate || null,
+                "personStatusId": 1,
+                "languageCode": "RU",
+                "location": {
+                    "languageCode": "RU",
+                    "country": user?.country || null,
+                    "region": user?.region || null,
+                    "city": user?.city || null
+                }
+            })
 
     console.log(user)
 
-    const handleForm = async (e) => {
-        await setForm({ ...form, [e.target.name]: e.target.value })
-      }
+    useEffect(() => {
+        user && setForm(user)
+    }, [user])
+    const handleForm = async (target) => {
+        await setForm({ ...form, [target.name]: target.value })
+    }
 
     if (!user) {
         return (
@@ -48,8 +65,8 @@ const Home = () => {
 
                                     <div className="info">
                                         <div className="name">
-                                            <span>{user.firstname}</span>
-                                            <span>{user.lastname}</span>
+                                            <span>{form.firstname}</span>
+                                            <span>{form.lastname}</span>
                                         </div>
                                         <div className="place">
                                             <img src={'/RU.png'} alt="RU" />
@@ -91,13 +108,14 @@ const Home = () => {
                                 Если ты заполнишь это поле, то получишь возможности общаться с людьми, получать бонусы
                             </div>
                             <form>
-                                <Input name={'fistname'} label={'Имя'} value={user.firstname || ''} callback={handleForm} />
-                                <Input name={'lastname'} label={'Фамилия'} value={user.lastname || ''} callback={handleForm} />
-                                <Input name={'patronymic'} label={'Отчество'} value={user.patronymic || ''} callback={handleForm} />
-                                <SexSelect  callback={handleForm}/>
-                                <DateInput name={'birthDate'} label={'Дата рождения'}  callback={handleForm} value={user.birthDate || new Date()}/>
-                                <StatusInput name={'personStatusId'} label={'Статус'} value={user.personStatusId || ''} variants={statuses} />
-                                <Input name={'lastname'} label={'Имя'} value={user.firstname} />
+                                <Input name={'fistname'} label={'Имя'} initValue={form.firstname || ''} onChange={handleForm} />
+                                <Input name={'lastname'} label={'Фамилия'} initValue={form.lastname || ''} onChange={handleForm} />
+                                <Input name={'patronymic'} label={'Отчество'} initValue={form.patronymic || ''} onChange={handleForm} />
+                                <Select name={'sex'} label={'Пол'} onChange={handleForm} initValue={form.sex || null} variants={['Женщина', 'Мужчина']} defaultVariant={'Другого не дано'} />
+                                <Input type={'date'} name={'birthDate'} label={'Дата рождения'} onChange={handleForm} initValue={form.birthDate || new Date()} />
+                                <Select name={'personStatusId'} label={'Статус'} onChange={handleForm} initValue={form.personStatusId || null} variants={['Школьник', 'Студент', 'Специалист']} defaultVariant={''} />
+
+                                <SelectWithPopup name={'country'} label={'Страна'} getData={getCountries} initValue={form.location.country || null} />
                             </form>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Manrope", sans-serif;
+  overflow: hidden;
 }
 
 * {
@@ -581,6 +582,80 @@ main {
   }
 
 
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -400;
+  opacity: 0;
+  transition: .4s ease;
+
+
+  .popup {
+    background-color: #fff;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    overflow: hidden;
+    height: 378px;
+    width: 496px;
+    position: absolute;
+    bottom: -50%;
+    left: calc(50% - 496px/2);
+    z-index: 500;
+    transition: .4s ease;
+
+    input,
+    div {
+      padding: 15px 20px;
+    }
+
+    input {
+      position: relative;
+      width: 100%;
+      padding-left: 45px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.02em;
+      color: rgba(132, 126, 149, 0.5);
+      border: none;
+      border-bottom: 1px solid #E7E7E7;
+
+      &::before{
+        content: url('/Union.png');
+        display: block;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+      }
+    }
+
+    div {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.02em;
+      color: #1F1A2D;
+    }
+  }
+
+  &.show {
+    z-index: 400;
+    opacity: 1;
+
+    .popup {
+      bottom: 0;
+
+    }
+    
+  }
 }
 
 .text-bold {

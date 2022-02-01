@@ -9,22 +9,20 @@ const useUser = () => {
 
     useEffect(useCallback(() => {
        localStorage.getItem('access_token') ? getUser() : ''
-       localStorage.getItem('access_token') ? getStatuses() : ''
+       if(localStorage.getItem('access_token')){
+        getStatuses()
+       }
     }), [])
 
     const getUser = async () => {
-        const res = await fetch('https://test.it-planet.org/user/profile/personal', {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            }
-        })
+        const res = await request('https://test.it-planet.org/user/profile/personal')
 
-        if (res.ok) {
-            const json = await res.json()
-            console.log(json)
-            await setUser(json)
-        } else {
-            localStorage.removeItem('access_token')
+        if (res) {
+            await setUser(res)
+        } 
+
+        if (res.code == '001-003'){
+                localStorage.removeItem('access_token')
         }
 
     }
@@ -34,8 +32,7 @@ const useUser = () => {
         setStatuses(res)
     }
 
-
-    return { user, statuses }
+    return { appUser: { user, statuses }}
 }
 
 export default useUser

@@ -19,7 +19,7 @@ const AuthPage = () => {
     router = useRouter()
 
 
-  const handleForm = async ({target}) => {
+  const handleForm = async (target) => {
     await setForm({ ...form, [target.name]: target.value })
   }
 
@@ -36,7 +36,7 @@ const AuthPage = () => {
 
   const loginRequest = async () => {
       const res = await request('/api/auth/login', 'POST', JSON.stringify({...form}))
-      login(res)
+      await login(res)
       router.push('/core/')
   }
 
