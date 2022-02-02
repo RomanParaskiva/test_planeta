@@ -1,8 +1,6 @@
 import { useState } from "react"
 const Input = ({ type = 'text', name, label, onChange, onClick, initValue }) => {
     const [value, setValue] = useState(initValue)
-
-    console.log(initValue)
     
     const handleFocus = (e) => {
         e.target.removeAttribute('readonly')
