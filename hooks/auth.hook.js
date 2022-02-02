@@ -19,7 +19,7 @@ const useAuth = () => {
         try {
             await setUserId(obj.id)
             await setEmail(obj.username)
-            localStorage.setItem('access_token', obj.token)
+            await localStorage.setItem('access_token', obj.token)
             router.push('/core')
         } catch (error) {
             console.log(error)

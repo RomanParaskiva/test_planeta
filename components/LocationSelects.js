@@ -18,7 +18,14 @@ const LocationSelects = ({ initValue, handleLocation }) => {
     useEffect(() => {
         getCountries()
     }, [])
-
+    
+    useEffect(() => {
+        if(location?.city){
+            console.log(location)
+            location.languageCode = "RU"
+            handleLocation(location)
+        }
+    }, [location])
 
     const getCountries = async (target) => {
         const body = JSON.stringify({
@@ -64,8 +71,8 @@ const LocationSelects = ({ initValue, handleLocation }) => {
     }
 
     const regionSearch = ({ target }) => {
-        if (target.value.length > 2) getRegions(target)
-        if (target.value.length < 2) getRegions()
+        if (target.value.length > 0) getRegions(target)
+        if (target.value.length == 0) getRegions()
     }
 
     const regionClickHandle = async ({ target }) => {
@@ -73,15 +80,12 @@ const LocationSelects = ({ initValue, handleLocation }) => {
     }
 
     const citySearch = ({ target }) => {
-        if (target.value.length > 2) getCities(target)
-        if (target.value.length < 2) getCities()
+        if (target.value.length > 0) getCities(target)
+        if (target.value.length == 0) getCities()
     }
 
     const cityClickHandle = async ({ target }) => {
-        setLocation({ ...location, city: cities.filter(item => item.wikiDataId === target.id)[0] })
-        setTimeout(() => {
-            handleLocation(location)
-        }, 1000)
+       await setLocation({ ...location, city: cities.filter(item => item.wikiDataId === target.id)[0] })
     }
 
     return (

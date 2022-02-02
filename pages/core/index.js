@@ -15,12 +15,12 @@ const Home = () => {
 
 
     const handleUserData = async () => {
-        userSkillsOpen ? await setUserSkillsOpen(!userSkillsOpen) : ''
+        userSkillsOpen ? await setUserSkillsOpen(false) : ''
         await setUserDataOpen(!userDataOpen)
     }
 
     const handleUserSkills = async () => {
-        userDataOpen ? setUserDataOpen(!userDataOpen) : ''
+        userDataOpen ? setUserDataOpen(false) : ''
         await setUserSkillsOpen(!userSkillsOpen)
     }
 

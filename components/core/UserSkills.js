@@ -20,7 +20,7 @@ const UserSkills = ({ userSkillsOpen, handleUserSkills }) => {
     }
 
     const addSkill = async (obj) => {
-        const res = await request('https://test.it-planet.org/user/skill', 'POST', JSON.stringify({ ...form }))
+        const res = await request('https://test.it-planet.org/user/skill', 'POST', JSON.stringify(obj ? {...obj} : { ...form }))
         setForm({})
         await getUser()
     }
@@ -43,8 +43,9 @@ const UserSkills = ({ userSkillsOpen, handleUserSkills }) => {
 
     const handlePressButton = async ({code, target}) => {
         if(code == 'Enter') {
-           await setForm()
            await addSkill({name: target.value})
+           target.value = ''
+           console.log(form)
            await handleClick()
         }
     }
@@ -68,7 +69,7 @@ const UserSkills = ({ userSkillsOpen, handleUserSkills }) => {
                 </h4>
 
                 <div className="skills__wrapper">
-                    {user.skills.map((item) => {
+                    {user && user.skills.map((item) => {
                         return <div key={item.id} id={item.id} className="skill">{item.name}<span onClick={removeSkill} className="delete-skill-btn">&times;</span></div>
                     })}
                 </div>

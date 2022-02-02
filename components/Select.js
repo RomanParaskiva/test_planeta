@@ -13,7 +13,6 @@ const Select = ({ name, label, onChange, initValue, variants, defaultVariant }) 
         await setOpen(!open)
         onChange({name, value: target.dataset.index})
     }
-
     return (
         <div className={open ? 'select open' : 'select'}>
 
@@ -26,7 +25,7 @@ const Select = ({ name, label, onChange, initValue, variants, defaultVariant }) 
                     name={name}
                     required
                     placeholder={name}
-                    value={value ? variants[value].name : ''} />
+                    value={value ? variants[value]?.name : ''} />
                 <label>{label}</label>
             </div>
             <div className="variants">

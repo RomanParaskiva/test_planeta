@@ -8,23 +8,9 @@ import LocationSelects from '../../components/LocationSelects'
 
 const UserForm = () => {
     const { appUser: { user, statuses } } = useContext(userContext),
-        [form, setForm] = useState(
-        {
-            "firstname": user?.firstname || null,
-            "lastname": user?.lastname || null,
-            "patronymic": user?.patronymic || null,
-            "sex": user?.sex || null,
-            "birthDate": user?.birthDate || null,
-            "personStatusId": 1,
-            "languageCode": "RU",
-            "location": {
-                "languageCode": "RU",
-                "country": user?.country || null,
-                "region": user?.region || null,
-                "city": user?.city || null
-            }
-        }),
+        [form, setForm] = useState({}),
         { request, loading } = useHttp()
+
 
     useEffect(() => {
         user && setForm({ ...user })
@@ -43,7 +29,9 @@ const UserForm = () => {
     }
 
     const handleLocation = async (obj) => {
-        await setForm({ ...form, location: obj })
+        console.log(obj)
+        await setForm({ ...form, location: {...obj} })
+        console.log(form)
     }
 
     return (
