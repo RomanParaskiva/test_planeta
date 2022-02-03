@@ -37,7 +37,7 @@ const AuthPage = () => {
   const loginRequest = async () => {
       const res = await request('/api/auth/login', 'POST', JSON.stringify({...form}))
       await login(res)
-      router.push('/core/')
+      router.reload()
   }
 
   return (

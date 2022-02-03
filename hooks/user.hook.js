@@ -7,12 +7,12 @@ const useUser = () => {
     [statuses, setStatuses] = useState([]),
     { request } = useHttp()
 
-    useEffect(useCallback(() => {
+    useEffect(() => {
        localStorage.getItem('access_token') ? getUser() : ''
        if(localStorage.getItem('access_token')){
         getStatuses()
        }
-    }), [])
+    }, [])
 
     const getUser = async () => {
         const res = await request('https://test.it-planet.org/user/profile/personal')

@@ -17,16 +17,19 @@ const useHttp = () => {
           'Authorization': `Bearer ${token}`
         }
       })
+
       if (res.status == 401) {
         localStorage.removeItem('access_token')
         setLoading(false)
       }
+
       if (!res.ok) {
         setRequestError(res.error)
         setLoading(false)
       }
-      setLoading(false) 
+     
       const json = await res.json()
+      setLoading(false) 
       return json
 
     } catch (e) {

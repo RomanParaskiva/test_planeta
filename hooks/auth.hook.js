@@ -8,7 +8,7 @@ const useAuth = () => {
         router = useRouter()
 
     useEffect(() => {
-       localStorage.getItem('access_token') && router.push('/core/')
+       localStorage.getItem('access_token') && router.push('/core')
        !localStorage.getItem('access_token') && router.push('/')
     }, [email, userId])
 
@@ -16,15 +16,9 @@ const useAuth = () => {
     const deleteChar = async () => { await setCode(code.substring(0, code.length - 1)) }
 
     const login = async (obj) => { 
-        try {
-            await setUserId(obj.id)
-            await setEmail(obj.username)
-            await localStorage.setItem('access_token', obj.token)
-            router.push('/core')
-        } catch (error) {
-            console.log(error)
-        }
-       
+             setUserId(obj.id)
+             setEmail(obj.username)
+             localStorage.setItem('access_token', obj.token)      
     }
 
     const logout = () => { }
