@@ -14,7 +14,7 @@ const UserActivate = () => {
     }
   }, [userId, code])
 
-  const handleForm = async ({ target }) => {
+  const handleForm = async ( target ) => {
     await setForm({ ...form, [target.name]: target.value })
   }
 

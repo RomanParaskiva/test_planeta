@@ -187,7 +187,6 @@ main {
   width: 100vw;
   height: $header-height;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 25px 30px;
   background-color: #fff;
@@ -199,8 +198,24 @@ main {
     line-height: 16px;
     letter-spacing: 0.02em;
     color: #000000;
+    margin-right: 190px;
   }
 
+  .header__profile {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 10px;
+    }
+    span {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 16px;
+      letter-spacing: 0.02em;
+      color: #1F1A2D;
+    }
+  }
 }
 
 .auth-form__wrapper {
@@ -535,7 +550,7 @@ main {
         display: flex;
         align-items: center;
 
-        .delete-skill-btn{
+        .delete-skill-btn {
           color: #000;
           margin-left: 10px;
           font-size: 25px;

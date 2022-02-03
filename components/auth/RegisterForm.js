@@ -27,13 +27,13 @@ const RegisterForm = ({props: { handleForm, regRequest }}) => {
       <Checkbox
         name={'mailing'}
         text={'Соглашаюсь на получение рассылки по электронной почте'}
-        onChange={handleForm}
+        handleForm={handleForm}
       />
 
       <Checkbox
         name={'policy'}
         text={'Соглашаюсь с <a>политикой обработки персональных данных</a>'}
-        onChange={handleForm}
+        handleForm={handleForm}
       />
     </form>
   )

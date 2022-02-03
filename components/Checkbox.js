@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-const Checkbox = ({ name, text, initValue = false, callback }) => {
+const Checkbox = ({ name, text, initValue = false, handleForm }) => {
   const [value, setValue] = useState(initValue || false)
   const handleChange = async (e) => {
     await setValue(!value)
-    callback(e)
+    handleForm(e)
   }
 
   return (
