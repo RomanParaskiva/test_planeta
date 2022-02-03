@@ -19,8 +19,14 @@ const UserSkills = ({ userSkillsOpen, handleUserSkills }) => {
 
     }
 
-    const addSkill = async (obj) => {
-        const res = await request('https://test.it-planet.org/user/skill', 'POST', JSON.stringify(obj ? {...obj} : { ...form }))
+    const addSkill = async () => {
+        const res = await request('https://test.it-planet.org/user/skill', 'POST', JSON.stringify({ ...form }))
+        setForm({})
+        await getUser()
+    }
+
+    const addSkillOnKeyPress = async (obj) => {
+        const res = await request('https://test.it-planet.org/user/skill', 'POST', JSON.stringify( {...obj}))
         setForm({})
         await getUser()
     }
@@ -43,9 +49,8 @@ const UserSkills = ({ userSkillsOpen, handleUserSkills }) => {
 
     const handlePressButton = async ({code, target}) => {
         if(code == 'Enter') {
-           await addSkill({name: target.value})
+           await addSkillOnKeyPress({name: target.value})
            target.value = ''
-           console.log(form)
            await handleClick()
         }
     }
